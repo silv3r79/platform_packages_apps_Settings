@@ -61,6 +61,8 @@ import com.android.settings.search.Indexable;
 import com.android.settingslib.RestrictedLockUtils;
 import com.android.settingslib.RestrictedPreference;
 
+import com.android.internal.util.cosmic.CosmicUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,6 +102,9 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_DOZE = "doze";
     private static final String KEY_ADVANCED_DOZE_OPTIONS = "advanced_doze_options";
 
+    private static final String KEY_COSDOZE = "cosmicdoze";
+    private static final String KEY_COS_DOZE_PACKAGE_NAME = "com.cyanogenmod.settings.doze";
+
     private Preference mFontSizePref;
 
     private TimeoutListPreference mScreenTimeoutPreference;
@@ -114,6 +119,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private PreferenceCategory mDozeCategory;
     private SwitchPreference mDozePreference;
     private PreferenceScreen mAdvancedDozeOptions;
+    private PreferenceScreen mExtraDoze;
 
     private static final String ROTATION_ANGLE_0 = "0";
     private static final String ROTATION_ANGLE_90 = "90";
@@ -180,7 +186,10 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         } else {
             prefSet.removePreference(mDozeCategory);
         }
-
+        mExtraDoze = (PreferenceScreen) findPreference(KEY_COSDOZE);
+        if (!CosmicUtils.isPackageInstalled(getActivity(), KEY_COS_DOZE_PACKAGE_NAME)) {
+            prefSet.removePreference(mExtraDoze);
+        }
         if (isTapToWakeAvailable(getResources())) {
             mTapToWakePreference = (SwitchPreference) findPreference(KEY_TAP_TO_WAKE);
             mTapToWakePreference.setOnPreferenceChangeListener(this);

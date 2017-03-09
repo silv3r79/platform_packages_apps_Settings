@@ -372,5 +372,6 @@
     <string name="doze_trigger_notification_summary_off">Notifications will not be utilized as a trigger</string>
     <string name="doze_brightness_title">Doze brightness level</string>
     <string name="doze_brightness_summary">Brightness level of doze pulse screen (% of max allowed brightness)</string>
+    <string name="cos_doze_settings">Cosmic Doze</string>
 
 </resources>
